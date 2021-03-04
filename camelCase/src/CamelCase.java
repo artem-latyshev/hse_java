@@ -18,10 +18,8 @@ public class CamelCase {
                 capitalLetterFound = true;
                 addToResultAndClearBuilderIfNotEmpty(stringBuilder, result);
                 stringBuilder.append(letter);
-            } else {
-                if (capitalLetterFound) {
-                    stringBuilder.append(letter);
-                }
+            } else if (capitalLetterFound) {
+                stringBuilder.append(letter);
             }
         }
         addToResultAndClearBuilderIfNotEmpty(stringBuilder, result);
