@@ -1,0 +1,35 @@
+User:
+GET http://localhost:8080/user/<userId>
+
+POST http://localhost:8080/user/<userId>
+body:
+{
+	"firstName":"firstName",
+	"lastName":"lastName"
+}
+
+POST http://localhost:8080/user/<userId>/account
+body:
+{
+	"amount":110
+}
+
+PUT http://localhost:8080/user/<userId>/account/<accountId>
+{
+	"amount":200
+}
+
+DELETE: http://localhost:8080/user/<userId>
+
+Transaction:
+GET http://localhost:8080/transaction
+
+POST http://localhost:8080/transaction
+body:
+{
+	"sourceUserId":<userId>,
+	"sourceAccountId":<accountId>,
+	"targetUserId":<userId>,
+	"targetAccountId":<accountId>,
+	"amount":<amount>
+}
