@@ -1,11 +1,13 @@
 package hse.vpi19.banking.controller;
 
+import hse.vpi19.banking.api.model.AccountDetails;
+import hse.vpi19.banking.api.model.UserDetails;
 import hse.vpi19.banking.service.Bank;
 import hse.vpi19.banking.exception.ApiException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -23,20 +25,20 @@ public class UserController {
 
     @PostMapping("/user/{userId}")
     @ResponseBody
-    public String addUser(@PathVariable("userId") Integer userId, @RequestBody Map<String, Object> payload) throws ApiException {
-        return bank.addUser(userId, (String)payload.get("firstName"), (String)payload.get("lastName")).toString();
+    public String addUser(@PathVariable("userId") Integer userId, @RequestBody UserDetails userDetails) throws ApiException {
+        return bank.addUser(userId, userDetails).toString();
     }
 
     @PostMapping("/user/{userId}/account")
     @ResponseBody
-    public String addAccount(@PathVariable("userId") Integer userId, @RequestBody Map<String, Object> payload) throws ApiException {
-        return bank.addAccount(userId, (Integer)payload.get("amount")).toString();
+    public String addAccount(@PathVariable("userId") Integer userId, @Valid @RequestBody AccountDetails accountDetails) throws ApiException {
+        return bank.addAccount(userId, accountDetails).toString();
     }
 
     @PutMapping("/user/{userId}/account/{accountId}")
     @ResponseBody
-    public String editUser(@PathVariable("userId") Integer userId, @PathVariable("accountId") Integer accountId, @RequestBody Map<String, Object> payload) throws ApiException {
-        return bank.editUser(userId, accountId, (Integer)payload.get("amount")).toString();
+    public String editAccount(@PathVariable("userId") Integer userId, @PathVariable("accountId") Integer accountId, @Valid @RequestBody AccountDetails accountDetails) throws ApiException {
+        return bank.editAccount(userId, accountId, accountDetails).toString();
     }
 
     @DeleteMapping("/user/{userId}")

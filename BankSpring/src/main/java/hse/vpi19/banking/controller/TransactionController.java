@@ -1,11 +1,12 @@
 package hse.vpi19.banking.controller;
 
+import hse.vpi19.banking.api.model.TransactionRequest;
 import hse.vpi19.banking.service.Bank;
 import hse.vpi19.banking.exception.ApiException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import javax.validation.Valid;
 
 @Controller
 public class TransactionController {
@@ -23,9 +24,8 @@ public class TransactionController {
 
     @PostMapping("/transaction")
     @ResponseBody
-    public String performTransaction(@RequestBody Map<String, Object> payload) throws ApiException {
-        return bank.performTransaction((Integer)payload.get("sourceUserId"), (Integer)payload.get("sourceAccountId"), (Integer)payload.get("targetUserId"),
-                (Integer)payload.get("targetAccountId"), (Integer)payload.get("amount")).toString();
+    public String performTransaction(@Valid @RequestBody TransactionRequest transactionRequest) throws ApiException {
+        return bank.performTransaction(transactionRequest).toString();
     }
 
 }
